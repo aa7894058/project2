@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="project7Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="mbrID" />
+          </Key>
+          <Property Name="mbrID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="mbrName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="nickName" Type="nvarchar" MaxLength="20" />
+          <Property Name="mbrPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="mbrMail" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="birthDate" Type="datetime" />
+          <Property Name="Points" Type="smallint" Nullable="false" />
+          <Property Name="mbrAut" Type="bit" Nullable="false" />
+          <Property Name="signupDate" Type="datetime" Nullable="false" />
+          <Property Name="mbrImage" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberAccount">
+          <Key>
+            <PropertyRef Name="mbrID" />
+          </Key>
+          <Property Name="mbrAccount" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="mbrPwd" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="mbrID" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__MemberAcc__mbrID__6A30C649">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberAccount" Type="Self.MemberAccount" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="mbrID" />
+            </Principal>
+            <Dependent Role="MemberAccount">
+              <PropertyRef Name="mbrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="project7ModelStoreContainer">
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberAccount" EntityType="Self.MemberAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MemberAcc__mbrID__6A30C649" Association="Self.FK__MemberAcc__mbrID__6A30C649">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberAccount" EntitySet="MemberAccount" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="project7Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="mbrID" />
+          </Key>
+          <Property Name="mbrID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="mbrName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="mbrPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mbrMail" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthDate" Type="DateTime" Precision="3" />
+          <Property Name="Points" Type="Int16" Nullable="false" />
+          <Property Name="mbrAut" Type="Boolean" Nullable="false" />
+          <Property Name="signupDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="mbrImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MemberAccount" Relationship="Self.FK__MemberAcc__mbrID__6A30C649" FromRole="Member" ToRole="MemberAccount" />
+        </EntityType>
+        <EntityType Name="MemberAccount">
+          <Key>
+            <PropertyRef Name="mbrID" />
+          </Key>
+          <Property Name="mbrAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mbrPwd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mbrID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK__MemberAcc__mbrID__6A30C649" FromRole="MemberAccount" ToRole="Member" />
+        </EntityType>
+        <Association Name="FK__MemberAcc__mbrID__6A30C649">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="MemberAccount" Type="Self.MemberAccount" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="mbrID" />
+            </Principal>
+            <Dependent Role="MemberAccount">
+              <PropertyRef Name="mbrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="project7Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Member" EntityType="Self.Member" />
+          <EntitySet Name="MemberAccount" EntityType="Self.MemberAccount" />
+          <AssociationSet Name="FK__MemberAcc__mbrID__6A30C649" Association="Self.FK__MemberAcc__mbrID__6A30C649">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberAccount" EntitySet="MemberAccount" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="project7ModelStoreContainer" CdmEntityContainer="project7Entities">
+          <EntitySetMapping Name="Member">
+            <EntityTypeMapping TypeName="project7Model.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="mbrID" ColumnName="mbrID" />
+                <ScalarProperty Name="mbrName" ColumnName="mbrName" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="mbrPhone" ColumnName="mbrPhone" />
+                <ScalarProperty Name="mbrMail" ColumnName="mbrMail" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="mbrAut" ColumnName="mbrAut" />
+                <ScalarProperty Name="signupDate" ColumnName="signupDate" />
+                <ScalarProperty Name="mbrImage" ColumnName="mbrImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberAccount">
+            <EntityTypeMapping TypeName="project7Model.MemberAccount">
+              <MappingFragment StoreEntitySet="MemberAccount">
+                <ScalarProperty Name="mbrAccount" ColumnName="mbrAccount" />
+                <ScalarProperty Name="mbrPwd" ColumnName="mbrPwd" />
+                <ScalarProperty Name="mbrID" ColumnName="mbrID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
